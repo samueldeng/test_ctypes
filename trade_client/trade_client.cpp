@@ -1,6 +1,6 @@
 // test.cpp
 // Linux: g++ trade_client.cpp -o libtrade_client.so --std c++17 -shared -fPIC -Wl,-rpath ./
-// OSX: g++ trade_client.cpp -o libtrade_client.dylib --std c++17 -shared -fPIC 
+// OSX: g++ trade_client.cpp -o libtrade_client.dylib --std c++17 -shared -fPIC -Wl,-rpath ./
 #include "./trade_client.hpp"
 
 namespace trade
