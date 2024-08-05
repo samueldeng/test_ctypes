@@ -1,5 +1,4 @@
-// g++ -o main --std c++17 -I./ -L./trade_client/ -ltrade_client main.cpp
-
+// g++ main.cpp -o main --std c++17 -I./ -L./trade_client/ -Wl,-rpath ./trade_client -ltrade_client -lpthread
 #include <trade_client/trade_client.hpp>
 #include <iostream>
 
