@@ -4,17 +4,19 @@
 // 
 // OSX Run: DYLD_LIBRARY_PATH=$PWD/trade_client ./main
 
-#include <trade_client/trade_client.hpp>
+#include <trade_client/trade_client_api.hpp>
 #include <iostream>
 
-void my_func(trade::Message messages)
+#include <unistd.h>
+
+void my_func(Message messages)
 {
     std::cout << "call my_func" << std::endl;
 }
 
 int main()
 {
-    trade::TradeClient trade_client;
-    trade_client.Start(&my_func);
-    trade_client.Join();
+    start_trade_client(&my_func);
+    sleep(5);
+    stop_trade_client();
 }
