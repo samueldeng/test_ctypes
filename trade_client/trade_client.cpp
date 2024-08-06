@@ -8,11 +8,11 @@ namespace trade
 
 TradeClient::TradeClient()
 {
-    packet_a_list_[0] = {'a', 11, 21, {'a', 'b', 'c'}, 41, 51};
-    packet_a_list_[1] = {'b', 12, 22, {'e', 'e', 'f'}, 42, 52};
-    packet_a_list_[2] = {'c', 13, 23, {'g', 'h', 'i'}, 43, 53};
-    packet_a_list_[3] = {'d', 14, 24, {'j', 'k', 'l'}, 44, 54};
-    packet_a_list_[4] = {'e', 15, 25, {'m', 'n', 'o'}, 45, 55};
+    packet_a_list_[0] = {'a', 11, 21, {'a', 'b', 'c', ' ', ' '}, 41, 51};
+    packet_a_list_[1] = {'b', 12, 22, {'e', 'e', 'f', ' ', ' '}, 42, 52};
+    packet_a_list_[2] = {'c', 13, 23, {'g', 'h', 'i', ' ', ' '}, 43, 53};
+    packet_a_list_[3] = {'d', 14, 24, {'j', 'k', 'l', ' ', ' '}, 44, 54};
+    packet_a_list_[4] = {'e', 15, 25, {'m', 'n', 'o', ' ', ' '}, 45, 55};
 
     messages_list_[0] = {0, 0, reinterpret_cast<char*>(&packet_a_list_[0]), 0};
     messages_list_[1] = {1, 1, reinterpret_cast<char*>(&packet_a_list_[1]), 1};

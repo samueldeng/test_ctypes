@@ -18,9 +18,13 @@ CmpFuncType = ctypes.CFUNCTYPE(None, Message)
 
 def callback(message):
     print("{:}  type: {}  len: {:d} data: {} checksum: {:d}".format(message, message.type, message.len, message.data, message.checksum))
-    print(
-        struct.unpack('<ciI10sQH', message.data[0:29]),
-    )
+    field1, field2, field3, field4, field5, field6 = struct.unpack('<ciI5sQH', message.data[0:24])
+    print("field1:", field1.decode('utf-8').strip(' '))
+    print("field2:", field2)
+    print("field3:", field3)
+    print("field4:", field4.decode('utf-8').strip(' '))
+    print("field5:", field5)
+    print("field6:", field6)
 
 cmpfunc = CmpFuncType(callback)
 

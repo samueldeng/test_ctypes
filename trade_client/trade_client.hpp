@@ -22,32 +22,14 @@ struct Message
 };
 
 #pragma pack(push,1)
-struct PacketA  //29
+struct PacketA  //24
 {
     char field_1;  // 1
     std::int32_t field_2;  //4
     std::uint32_t field_3;  //4
-    char field_4[10];  // 10
+    char field_4[5];  // 5
     std::uint64_t field_5;  // 8
     std::uint16_t field_6;  // 2
-};
-
-struct PacketC
-{
-    char char_arr[10];
-    std::uint64_t size;
-};
-
-struct PacketB
-{
-    int32_t interger1;
-    char char1;
-    std::uint32_t uint1;
-    char chararray10[10];
-    std::uint64_t field3;
-    std::uint32_t field5;
-    std::uint8_t bool1;
-    std::vector<PacketC> vec;
 };
 #pragma pack(pop)
 
