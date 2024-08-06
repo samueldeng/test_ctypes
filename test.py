@@ -19,10 +19,10 @@ CmpFuncType = ctypes.CFUNCTYPE(None, Message)
 def callback(message):
     print("{:}  type: {}  len: {:d} data: {} checksum: {:d}".format(message, message.type, message.len, message.data, message.checksum))
     field1, field2, field3, field4, field5, field6 = struct.unpack('<ciI5sQH', message.data[0:24])
-    print("field1:", field1.decode('utf-8').strip(' '))
+    print("field1:", field1.decode('ascii').strip(' '))
     print("field2:", field2)
     print("field3:", field3)
-    print("field4:", field4.decode('utf-8').strip(' '))
+    print("field4:", field4.decode('ascii').strip(' '))
     print("field5:", field5)
     print("field6:", field6)
 
@@ -41,7 +41,7 @@ if __name__ == "__main__":
             msg.len = 4
             # 使用 struct 模块将字符串转换为字节数组
             data_str = "test"
-            data_bytes = struct.pack(f'{msg.len}s', data_str.encode('utf-8'))
+            data_bytes = struct.pack('%ds' % msg.len, data_str.encode('ascii'))  # 将字符串编码为字节对象
             # 创建一个 ctypes 字节数组并赋值给 data 字段
             data_array = (ctypes.c_char * msg.len).from_buffer_copy(data_bytes)
             msg.data = ctypes.cast(data_array, ctypes.POINTER(ctypes.c_char))
