@@ -36,7 +36,18 @@ if __name__ == "__main__":
     try:
         threading.Thread(target=trade_client_thread).start()
         while (True):
-            time.sleep(20)
+            msg = Message()
+            msg.type = 1
+            msg.len = 4
+            # 使用 struct 模块将字符串转换为字节数组
+            data_str = "test"
+            data_bytes = struct.pack(f'{msg.len}s', data_str.encode('utf-8'))
+            # 创建一个 ctypes 字节数组并赋值给 data 字段
+            data_array = (ctypes.c_char * msg.len).from_buffer_copy(data_bytes)
+            msg.data = ctypes.cast(data_array, ctypes.POINTER(ctypes.c_char))
+            msg.checksum = 1234
+            print(libsum_so.send_message(msg))
+            time.sleep(1)
 
     except KeyboardInterrupt:
         libsum_so.stop_trade_client()

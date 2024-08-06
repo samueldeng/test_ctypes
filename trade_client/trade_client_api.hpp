@@ -17,3 +17,5 @@ extern "C" void start_trade_client(callback_functype callback);
 extern "C" void stop_trade_client();
 
 extern "C" void join_trade_client();
+
+extern "C" void send_message(Message message);

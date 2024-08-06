@@ -13,6 +13,13 @@ constexpr std::uint64_t running{1};
 constexpr std::uint64_t stopped{2};
 };
 
+namespace error_code
+{
+constexpr std::uint64_t success{0};
+constexpr std::uint64_t failed{1};
+constexpr std::uint64_t failed2{2};
+};
+
 struct Message
 {
     std::uint32_t type;
@@ -44,6 +51,8 @@ class TradeClient
 
     void Join();
 
+    std::uint64_t Send(Message message);
+
     void Stop();
 
     void Run();
@@ -53,9 +62,8 @@ class TradeClient
     std::thread thread_;
     std::atomic_uint64_t status_{trade_client_status::inited};
 
-    Message messages_list_[1024];
-    PacketA packet_a_list_[1024];
-    PacketB packet_b_list_[1024];
+    Message messages_list_[5];
+    PacketA packet_a_list_[5];
 
 };
 

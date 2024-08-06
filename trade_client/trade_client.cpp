@@ -1,7 +1,9 @@
 // test.cpp
 // Linux: g++ trade_client.cpp -o libtrade_client.so --std c++17 -shared -fPIC -Wl,-rpath ./
 // OSX: g++ trade_client.cpp -o libtrade_client.dylib --std c++17 -shared -fPIC -Wl,-rpath ./
-#include "./trade_client.hpp"
+#include "trade_client.hpp"
+
+#include <iostream>
 
 namespace trade
 {
@@ -35,6 +37,22 @@ void TradeClient::Stop()
     status_ = trade_client_status::stopped;
 }
 
+std::uint64_t trade::TradeClient::Send(Message message)
+{
+    if (message.data == nullptr) 
+    {
+        return error_code::failed;
+    }
+
+    if (message.type == 0)
+    {
+        return error_code::failed2;
+    }
+
+    std::cout << "-----trade::TradeClient::Send: " << message.type << " " << message.length << " " << message.data << " " <<  message.checksum << std::endl;
+    return error_code::success;
+}
+
 void TradeClient::Run()
 {
     while (status_ == trade_client_status::running)
@@ -42,7 +60,7 @@ void TradeClient::Run()
         static int i = 0;
         // std::cout << i_ << std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        callback_(messages_list_[i++]);
+        callback_(messages_list_[(i++) % 5 ]);
     }
 }
 
