@@ -1,14 +1,15 @@
 import ctypes
 import time
 import struct
+import threading
+import sys
 
 class Message(ctypes.Structure):
     _fields_ = [
         ("type", ctypes.c_int),
         ("len", ctypes.c_int),
         ("data", ctypes.POINTER(ctypes.c_char)),
-        ("checksum", ctypes.c_int),
-        
+        ("checksum", ctypes.c_int),        
 ]
 
 libsum_so = ctypes.CDLL("./trade_client/libtrade_client_api.dylib") 
@@ -23,8 +24,17 @@ def callback(message):
 
 cmpfunc = CmpFuncType(callback)
 
-
-if __name__ == "__main__":
+def trade_client_thread():
     libsum_so.start_trade_client(cmpfunc)
-    time.sleep(5)
-    # libsum_so.join_trade_client()
+    libsum_so.join_trade_client()
+
+if __name__ == "__main__":    
+    try:
+        threading.Thread(target=trade_client_thread).start()
+        while (True):
+            time.sleep(20)
+
+    except KeyboardInterrupt:
+        libsum_so.stop_trade_client()
+        print("Bye Bye")
+        sys.exit(0)
